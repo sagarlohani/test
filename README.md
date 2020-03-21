@@ -1,5 +1,7 @@
 ## run the program 
 
-python src/main/app.py
+python3 src/main/app.py
+
+
 
 
