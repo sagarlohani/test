@@ -1,6 +1,5 @@
-# test hello from keshav
+## run the program 
 
-
-### sagar now
+python src/main/app.py
 
 
