@@ -15,7 +15,7 @@ mongo = pymongo.MongoClient("13.90.173.138", 27017)
 @app.route('/')
 def index():
     if 'username' in session:
-        return 'You are logged in as ' + session['username']
+        return 'You are logged in as ' + session['username']+render_template('index.html')
 
     return render_template('index.html')
 
@@ -25,11 +25,11 @@ def login():
     login_user = users.find_one({'name' : request.form['username']})
 
     if login_user:
-        if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-            session['username'] = request.form['username']
+        #if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+            #session['username'] = request.form['username']
             return redirect(url_for('index'))
 
-    return 'Invalid username/password combination'
+    return 'Invalid username/password combination'+render_template('index.html')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -43,7 +43,7 @@ def register():
             session['username'] = request.form['username']
             return redirect(url_for('index'))
         
-        return 'That username already exists!'
+        return 'That username already exists!'+render_template('index.html')
 
     return render_template('register.html')
 
