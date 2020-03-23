@@ -25,9 +25,10 @@ def login():
     login_user = users.find_one({'name' : request.form['username']})
 
     if login_user:
-        #if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-            #session['username'] = request.form['username']
-            return redirect(url_for('index'))
+         hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+         if bcrypt.hashpw(bytes(request.form['pass'], 'utf-8'), hashpass) == hashpass:        #if bcrypt.hashpw(bytes(request.form['pass'], 'utf-8'), hashpass) == hashpass:
+                  session['username'] = request.form['username']
+         return redirect(url_for('index'))
 
     return 'Invalid username/password combination'+render_template('index.html')
 
