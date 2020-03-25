@@ -15,7 +15,7 @@ mongo = pymongo.MongoClient("13.90.173.138", 27017)
 @app.route('/')
 def index():
     if 'username' in session:
-        return 'You are logged in as ' + session['username']+render_template('index.html')
+        return 'You are logged in as ' + session['username']+render_template('webpage.html')
 
     return render_template('index.html')
 
