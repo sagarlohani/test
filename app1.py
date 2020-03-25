@@ -47,6 +47,11 @@ def register():
         return 'That username already exists!'+render_template('index.html')
 
     return render_template('register.html')
+	
+@app.route('/webpage',methods=['POST','GET'])
+def logout():
+	session['username']=''
+	return render_template('index.html')
 
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
