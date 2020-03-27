@@ -15,8 +15,20 @@ app.config['SECRET_KEY'] = 'thisisthesecretkey'
 #mongo = pymongo(app)
 mongo = pymongo.MongoClient("13.90.173.138", 27017)
 
-twitter_blueprint = make_twitter_blueprint(api_key='', api_secret='')
+twitter_blueprint = make_twitter_blueprint(api_key='V6FNK8EvFlTM8rkzzngYTeSEr', api_secret='i38Cz5srPe3PIYbuqlQ05p6BJapT4019vy49ZfMtOuxt6we482')
 
+app.register_blueprint(twitter_blueprint, url_prefix='/twitter_login')
+
+
+@app.route('/twitter')
+def twitter_login():
+      if not twitter.authorized:
+	      return redirect(url_for('twitter.login'))
+      account_info = twitter.get('account/settings.json')
+
+      if account_info.ok:
+            return 'your twitter name is @{}'
+      return 'request failed'
 @app.route('/')
 def index():
     if 'username' in session:
