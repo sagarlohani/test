@@ -53,6 +53,16 @@ def logout():
 	session['username']=''
 	return render_template('index.html')
 
+@app.route('/manageprojects',methods=['POST','GET'])
+def mproject():
+	
+	return render_template('webpage1.html')
+	
+@app.route('/createprojects',methods=['POST','GET'])
+def cproject():
+	
+	return render_template('webpage2.html')
+	
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(debug=True)
