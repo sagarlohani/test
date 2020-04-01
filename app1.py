@@ -19,6 +19,10 @@ def index():
 
     return render_template('index.html')
 
+def insert():	
+	
+        return render_template('webpage1.html')+' data inserted please check database'
+
 @app.route('/login', methods=['POST'])
 def login():
     users = mongo.db.users
@@ -68,12 +72,9 @@ def cproject():
 			users = mongo.db.users
 			post = {"pname":request.form['pname'],"pdescri":request.form['pdescri']}
 			users.insert_one(post)
-			return redirect(url_for('index'))
-
-def insert():	
-	if 'username' in session:
-        return ' data inserted please check database' + '' +render_template('webpage1.html')
+			return render_template('webpage1.html')
 	return render_template('webpage1.html')
+
 	
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
