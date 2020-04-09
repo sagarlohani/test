@@ -74,9 +74,9 @@ def cproject():
 	
 	if request.method == 'POST':
 			users = mongo.db.users
-			post = {"pname":request.form['pname'],"pdescri":request.form['pdescri'], "pid": 'p'+str(int(random.random()*100)), "uid":'u'+str(int(random.random()*100))}
+			post = {"pid":request.form['pid'],"pname":request.form['pname'],"pdescri":request.form['pdescri'], "uid":'u'+str(int(random.random()*100))}
 			users.insert_one(post)
-			return render_template('webpage1.html')+session['username']+users.find_one({"uid":{"name" : session['username']}})
+			return render_template('webpage.html')+'succuss'
 	return render_template('webpage1.html')
 
 	
