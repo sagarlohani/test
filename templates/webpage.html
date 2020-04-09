@@ -13,7 +13,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{{ url_for('hproject') }}">{{session['username']}}</a>
+      <a class="navbar-brand" href="{{ url_for('hproject') }}">{{session['username'].split('@')[0]}}</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{{ url_for('hproject') }}">Home</a></li>

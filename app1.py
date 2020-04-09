@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, redirect
 #from flask.ext.pymongo import PyMongo
+import random
 import pymongo
 import bcrypt
 
@@ -15,7 +16,8 @@ mongo = pymongo.MongoClient("13.90.173.138", 27017)
 @app.route('/')
 def index():
     if 'username' in session:
-        return 'You are logged in as ' + session['username']+render_template('webpage.html')
+			
+        return 'You are logged in as ' + session['username'].split('@')[0]+render_template('webpage.html')
 
     return render_template('index.html')
 
@@ -38,17 +40,18 @@ def login():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+	
     if request.method == 'POST':
         users = mongo.db.users
         existing_user = users.find_one({'name' : request.form['username']})
-
+		
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'name' : request.form['username'], 'password' : hashpass})
+            users.insert({'name' : request.form['username'], 'password' : hashpass,'uid':'u'+str(int(random.random()*100))})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
         
-        return 'That username already exists!'+render_template('index.html')
+        return 'That username already exists!'+str(int(random.random()*100))+render_template('index.html')
 
     return render_template('register.html')
 	
@@ -68,11 +71,12 @@ def mproject():
 	
 @app.route('/createprojects',methods=['POST','GET'])
 def cproject():
+	
 	if request.method == 'POST':
 			users = mongo.db.users
-			post = {"pname":request.form['pname'],"pdescri":request.form['pdescri']}
+			post = {"pname":request.form['pname'],"pdescri":request.form['pdescri'], "pid": 'p'+str(int(random.random()*100)), "uid":'u'+str(int(random.random()*100))}
 			users.insert_one(post)
-			return render_template('webpage1.html')
+			return render_template('webpage1.html')+session['username']+users.find_one({"uid":{"name" : session['username']}})
 	return render_template('webpage1.html')
 
 	
