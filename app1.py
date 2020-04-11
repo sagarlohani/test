@@ -12,6 +12,7 @@ app.config['MONGO_URI'] = 'mongodb://slohani001:Pwcwelcome1!13.90.173.138:27017/
 #mongo = PyMongo(app)
 #mongo = pymongo(app)
 mongo = pymongo.MongoClient("13.90.173.138", 27017)
+todos = mongo.db.users
 
 @app.route('/')
 def index():
@@ -74,9 +75,10 @@ def cproject():
 	
 	if request.method == 'POST':
 			users = mongo.db.users
-			post = {"pid":request.form['pid'],"pname":request.form['pname'],"pdescri":request.form['pdescri'], "uid":'u'+str(int(random.random()*100))}
+			post = {"pid":request.form['pid'],"pname":request.form['pname'],"pdescri":request.form['pdescri'], "uid":session['username']}
 			users.insert_one(post)
-			return render_template('webpage.html')+'succuss'
+			todo_l =todos.find({'uid':session['username']})
+			return render_template('webpage2.html',todos=todo_l)+'succuss'
 	return render_template('webpage1.html')
 
 	

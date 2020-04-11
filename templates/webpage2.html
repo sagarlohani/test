@@ -26,4 +26,28 @@
   </div>
 </div>
 </div>
+<table class="table">
+ 
+      <tr>
+        <th>Project Name</th>
+        <th>Project Description</th>
+        <th>UID</th>
+		<th>Project ID</th>
+        <th></th>
+        <th></th>
+      </tr>
+    
+{% for todo in todos %}
+
+		<tr class="success">
+			<td class="name">{{ todo["pname"] }}</td>
+			<td class="desc">{{ todo["pdescri"] }}</td>
+			<td class="date">{{ todo["uid"] }}</td>
+			<td class="pr">{{ todo["pid"] }}</td>
+			<td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button type="submit">DELETE</button></a></td>
+			<td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button type="submit">EDIT</button></a></td>
+		</tr>
+		
+	{% endfor %}
+	</table>
 {% endblock %}
