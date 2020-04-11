@@ -67,8 +67,8 @@ def hproject():
 	return render_template('webpage3.html')
 @app.route('/manageprojects',methods=['POST','GET'])
 def mproject():
-	
-	return render_template('webpage2.html')
+	todo_l =todos.find({'uid':session['username']})
+	return render_template('webpage2.html',todos=todo_l)
 	
 @app.route('/createprojects',methods=['POST','GET'])
 def cproject():
