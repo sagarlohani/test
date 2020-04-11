@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, redirect
 #from flask.ext.pymongo import PyMongo
+from bson import ObjectId # For ObjectId to work
 import random
 import pymongo
 import bcrypt
@@ -22,6 +23,14 @@ def index():
 
     return render_template('index.html')
 
+@app.route("/remove")
+def remove ():
+	#Deleting a Task with various references
+	key=request.values.get("_id")
+	todos.remove({"_id":ObjectId(key)})
+	todo_l =todos.find({'uid':session['username']})
+	return render_template('webpage2.html',todos=todo_l)
+	
 def insert():	
 	
         return render_template('webpage1.html')+' data inserted please check database'
