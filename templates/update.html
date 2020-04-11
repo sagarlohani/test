@@ -1,0 +1,28 @@
+{% extends "webpage.html" %}
+{% block body %}
+	
+	<form action="/action3" method="POST">
+	{% for task in tasks %}
+		UserName : {{ task['uid'] }}<br/>
+	<input type="text" name="_id" value="{{ task['_id'] }}" hidden>
+
+	<table>
+	<tr>
+	<td>Project Name</td><td> : </td><td><input type="text" name="name" value="{{ task['pname'] }}" placeholder="{{ task['pname'] }}"></td>
+	</tr>
+	<tr>
+	<td>Project Description</td><td> : </td><td><textarea type="text" name="desc" rows=3 cols=30 placeholder="{{ task['pdescri'] }}"> {{ task['pdescri'] }} </textarea></td>
+	</tr>
+	<tr>
+	<td>Project Id</td><td> : </td><td><input type="text" name="date" value="{{ task['pid'] }}" placeholder="{{ task['pid'] }}"></td>
+	</tr>
+	<tr>
+	<td>OBJECT ID</td><td> : </td><td><input type="text" name="pr" value="{{ task['_id'] }}" placeholder="{{ task['_id'] }}"></td>
+	</tr>
+	</table>
+	{% endfor %}
+		<button type="submit"> Update Task </button>
+		<br/>
+	</form>
+	
+{% endblock %}

@@ -30,7 +30,24 @@ def remove ():
 	todos.remove({"_id":ObjectId(key)})
 	todo_l =todos.find({'uid':session['username']})
 	return render_template('webpage2.html',todos=todo_l)
-	
+
+@app.route("/update")
+def update ():
+	todo_l =todos.find({'uid':session['username']})
+	id=request.values.get("_id")
+	task=todos.find({"_id":ObjectId(id)})
+	return render_template('update.html',tasks=todo_l)
+
+@app.route("/action3", methods=['POST'])
+def action3 ():
+	#Updating a Task with various references
+	pname=request.values.get("pname")
+	pdescri=request.values.get("pdescri")
+	pid=request.values.get("pid")
+	uid=request.values.get("uid")
+	id=request.values.get("_id")
+	todos.update({"uid":uid}, {'$set':{ "pname":pname, "pdesccri":pdescri, "pid":pid}})
+	return redirect("/homeprojects")	
 def insert():	
 	
         return render_template('webpage1.html')+' data inserted please check database'
@@ -64,6 +81,7 @@ def register():
         return 'That username already exists!'+str(int(random.random()*100))+render_template('index.html')
 
     return render_template('register.html')
+
 	
 @app.route('/webpage',methods=['POST','GET'])
 def logout():
