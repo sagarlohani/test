@@ -33,10 +33,9 @@ def remove ():
 
 @app.route("/update")
 def update ():
-	todo_l =todos.find({'uid':session['username']})
 	id=request.values.get("_id")
 	task=todos.find({"_id":ObjectId(id)})
-	return render_template('update.html',tasks=todo_l)
+	return render_template('update.html',tasks=task)
 
 @app.route("/action3", methods=['POST'])
 def action3 ():
