@@ -1,23 +1,23 @@
 {% extends "webpage.html" %}
 {% block body %}
 	
-	<form action="/action3" method="POST">
+	<form action="{{url_for('action1')}}" method="POST">
 	{% for task in tasks %}
 		UserName : {{ task['uid'] }}<br/>
-	<input type="text" name="_id" value="{{ task['_id'] }}" hidden>
+	<input type="text" name="id" value="{{ task['_id'] }}" hidden>
 
 	<table>
 	<tr>
-	<td>Project Name</td><td> : </td><td><input type="text" name="name" value="{{ task['pname'] }}" placeholder="{{ task['pname'] }}"></td>
+	<td>Project Name</td><td> : </td><td><input type="text" name="pname" value="{{ task['pname'] }}" placeholder="{{ task['pname'] }}"></td>
 	</tr>
 	<tr>
-	<td>Project Description</td><td> : </td><td><textarea type="text" name="desc" rows=3 cols=30 placeholder="{{ task['pdescri'] }}"> {{ task['pdescri'] }} </textarea></td>
+	<td>Project Description</td><td> : </td><td><textarea type="text" name="pdescri" rows=3 cols=30 placeholder="{{ task['pdescri'] }}"> {{ task['pdescri'] }} </textarea></td>
 	</tr>
 	<tr>
-	<td>Project Id</td><td> : </td><td><input type="text" name="date" value="{{ task['pid'] }}" placeholder="{{ task['pid'] }}"></td>
+	<td></td><td>  </td><td><input type="text" name="pid" value="{{ task['pid'] }}" placeholder="{{ task['pid'] }}" hidden></td>
 	</tr>
 	<tr>
-	<td>OBJECT ID</td><td> : </td><td><input type="text" name="pr" value="{{ task['_id'] }}" placeholder="{{ task['_id'] }}"></td>
+	<td></td><td>  </td><td><input type="text" name="_id" value="{{ task['_id'] }}" placeholder="{{ task['_id'] }}" hidden></td>
 	</tr>
 	</table>
 	{% endfor %}

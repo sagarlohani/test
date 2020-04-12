@@ -36,17 +36,18 @@ def update ():
 	id=request.values.get("_id")
 	task=todos.find({"_id":ObjectId(id)})
 	return render_template('update.html',tasks=task)
+@app.route('/action1', methods=['POST'])
+def action1 ():
 
-@app.route("/action3", methods=['POST'])
-def action3 ():
-	#Updating a Task with various references
-	pname=request.values.get("pname")
-	pdescri=request.values.get("pdescri")
-	pid=request.values.get("pid")
-	uid=request.values.get("uid")
-	id=request.values.get("_id")
-	todos.update({"uid":uid}, {'$set':{ "pname":pname, "pdesccri":pdescri, "pid":pid}})
-	return redirect("/homeprojects")	
+	pname=request.form['pname']
+	pdescri=request.form['pdescri']
+	pid=request.form['pid']
+	uid=session['username']
+	id=request.form['id']
+	todos.update({'uid':uid,'pid':pid}, {'$set':{"pname":pname,"pdescri":pdescri,"uid":uid}})
+	todo_l =todos.find({'uid':session['username']})
+	return render_template('webpage2.html',todos=todo_l)
+	
 def insert():	
 	
         return render_template('webpage1.html')+' data inserted please check database'
