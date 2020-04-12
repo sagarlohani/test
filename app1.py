@@ -19,7 +19,7 @@ todos = mongo.db.users
 def index():
     if 'username' in session:
 			
-        return 'You are logged in as ' + session['username'].split('@')[0]+render_template('webpage.html')
+        return render_template('webpage3.html')
 
     return render_template('index.html')
 
